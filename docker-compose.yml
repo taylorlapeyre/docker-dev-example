@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  redis:
+    image: 'redis:alpine'
+    ports:
+      - '6379:6379'
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    volumes:
+      - 'redis-data:/data'
+
+  db:
+    image: 'postgres:latest'
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: wren
+    volumes:
+      - 'db-data:/var/lib/postgresql/data/'
+
+  app:
+    build:
+      context: .
+    environment:
+      DATABASE_URL: 'postgres://postgres:password@db:5432/wren'
+    depends_on:
+      - db
+      - redis
+    volumes:
+      - ./src:/app/src
+    ports:
+      - '8080:8080'
+      - '8181:8181'
+      - '18181:18181'
+
+volumes:
+  db-data:
+  redis-data:
