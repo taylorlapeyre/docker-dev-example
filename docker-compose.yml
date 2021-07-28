@@ -31,10 +31,9 @@ services:
       - redis
     volumes:
       - ./src:/app/src
+      - ./migrations:/app/migrations
     ports:
       - '8080:8080'
-      - '8181:8181'
-      - '18181:18181'
 
 volumes:
   db-data:

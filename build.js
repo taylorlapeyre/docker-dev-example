@@ -16,9 +16,3 @@ build({
   bundle: true,
   run: false,
 });
-
-cliopts.watch && require("serve-http").createServer({
-  port: 8181,
-  public: true,
-  pubdir: require("path").join(__dirname, "out", "client"),
-});
