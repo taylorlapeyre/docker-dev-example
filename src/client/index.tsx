@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 
 function MyApp() {
   useEffect(() => {
-    fetch('/api/ping').then(response => response.json()).then((data) => console.log(data));
+    fetch('/api/users').then(response => response.json()).then((data) => console.log(data));
   }, []);
 
   return (

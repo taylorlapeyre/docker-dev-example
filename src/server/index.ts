@@ -10,8 +10,9 @@ async function boot() {
 
   app.use(express.static(path.join(__dirname, '..', 'client')));
 
-  app.get('/api/ping', (req, res) => {
-    res.send({ message: 'pong' });
+  app.get('/api/users', async (req, res) => {
+    const { rows: users } = await db.query(`SELECT * FROM users`);
+    res.send({ users });
   })
 
   app.listen(8080);
